@@ -1,0 +1,74 @@
+---
+title: "new"
+author: "Tapas Mishra"
+date: "18 April 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r fig.width=5, fig.height=5}
+x = 1:10 
+y = c(0.45, 1.46, 1.94, 1.45, 2.35, 2.87, 2.39, 2.69, 3.85, 4.07)
+plot(x, y, ylim = c(0, 6), xlab = "A Custom x label", ylab = "A Custom y label", main = "A Basic Scatter Plot")
+
+```
+Now, using most of the above information , let us create some data and create a graph step by step
+
+```{r fig.width=5, fig.height=1.5}
+
+data.df = c(28.88,7.31,2.47,1.74,20.62,17.38,8.52,6.72,29.35,42.86)
+x=seq(1,40, 0.01)
+res = 0;cn = 1
+for(i in x)
+{
+  
+  res[cn] = prod(dnorm(data.df , i, 15))
+  cn = cn+1
+  
+}
+tbl = data.frame(mu = x, prob = res)
+plot.new()
+
+#Set up your plot window
+plot.window(xlim = c(0,40), ylim = range(res) )
+#set up your x-axis
+axis(1, pos = 0, at = seq(0,40, 5),tck = -0.05) 
+
+
+```
+
+
+```{r}
+
+plot.new()
+#Set up your plot window
+plot.window(xlim = range(x), ylim = range(res) )
+#set up your x-axis
+axis(1, pos = 0, at = seq(0,40, 5),tck = -0.05)
+#Plot your points
+points(x, res, col="red")
+
+```
+
+
+```{r}
+plot.new()
+#Set up your plot window
+plot.window(xlim = range(x), ylim = range(res) )
+#set up your x-axis
+axis(1, pos = 0, at = seq(0,40, 5),tck = -0.05)
+#Plot your points
+points(x, res, col="red")
+# Add title
+title(main = "A Normal Distribution")
+
+#Let draw a vertical line at x , where the plot maximizes
+abline(v = tbl[which.max(tbl$prob),]$mu)
+
+```
+
